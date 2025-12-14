@@ -27,19 +27,3 @@ spec:
           name: npm-data
         - mountPath: "/etc/letsencrypt"
           name: npm-letsencrypt
-  volumeClaimTemplates:
-  - metadata:
-      name: npm-data
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 1Gi
-  - metadata:
-      name: npm-letsencrypt
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 2Gi
-
