@@ -5,7 +5,7 @@ metadata:
   namespace: npm
 spec:
   serviceName: "npm"
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: npm
