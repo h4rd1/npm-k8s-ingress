@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: npm
+  namespace: npm
+spec:
+  serviceName: "npm"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: npm
+  template:
+    metadata:
+      labels:
+        app: npm
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: npm
+        image: jc21/nginx-proxy-manager:latest
+        ports:
+          - containerPort: 81
+          - containerPort: 80
+          - containerPort: 443
+        volumeMounts:
+        - mountPath: "/data"
+          name: npm-data
+        - mountPath: "/etc/letsencrypt"
+          name: npm-letsencrypt
+  volumeClaimTemplates:
+  - metadata:
+      name: npm-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+  - metadata:
+      name: npm-letsencrypt
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+
